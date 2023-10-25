@@ -17,7 +17,10 @@ class _MyregisterState extends State<Myregister> {
           TextFormField(decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Fullname'),),
           TextFormField(decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Username'),),
           TextFormField(decoration: InputDecoration(border: OutlineInputBorder(),hintText: 'Password'),),
-          Stack(children: [ CircleAvatar(backgroundImage: NetworkImage('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kindpng.com%2Fimgv%2FiThJmoo_white-gray-circle-avatar-png-transparent-png%2F&psig=AOvVaw1usEfNbD9mgrTCXtTcoBhn&ust=1698282212138000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKCTrcWGkIIDFQAAAAAdAAAAABAJ'),)],),
+          Stack(children: [ CircleAvatar(radius: MediaQuery.of(context).size.width*0.08,backgroundImage: AssetImage('images/face.png'),
+          ),Positioned(child: IconButton(onPressed: () {
+            
+          },icon: Icon(Icons.add_a_photo)),bottom: -10,left: 80,)],),
           Row(mainAxisAlignment: MainAxisAlignment.end,children: [
             ElevatedButton(onPressed: () {
 
