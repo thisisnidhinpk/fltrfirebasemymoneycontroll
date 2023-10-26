@@ -1,0 +1,4 @@
+Stack(children: [ CircleAvatar(radius: MediaQuery.of(context).size.width*0.08,backgroundImage: AssetImage('images/face.png'),
+          ),Positioned(child: IconButton(onPressed: () {
+
+          },icon: Icon(Icons.add_a_photo)),bottom: -10,left: 80,)],),
