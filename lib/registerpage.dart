@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Myregister extends StatefulWidget {
@@ -44,8 +46,10 @@ checkValid(context);
         ]),),
     );
   }
-  void checkValid(BuildContext ctx)
+ Future<void> checkValid(BuildContext ctx) async
   {
+    //WidgetsFlutterBinding.ensureInitialized();
+    //await Firebase.initializeApp(options: FirebaseOptions(apiKey: 'AIzaSyCmUXGrTQ26ZJdlZJO0QWbHVSrB8UcnfBA', appId: '1:642470464786:android:24d03f826739acd96d37cb', messagingSenderId: '642470464786', projectId: 'mymoneycontroll'));
     if(fname.text==''||uname==''||pwd=='')
       {
         ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
@@ -54,6 +58,19 @@ checkValid(context);
             content:Text("error"),
         backgroundColor: Colors.red,));
 
+      }
+    else
+      {
+        var docData=FirebaseFirestore.instance.collection('userdetails').doc();
+        final user= {
+          'id': docData.id,
+
+          'fullname': fname.text,
+          'uname': uname.text,
+          'passwd':pwd.text
+        };
+
+        var r= await docData.set(user);
       }
   }
 }
