@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mymoneycontroll/myhomepage.dart';
 import 'package:mymoneycontroll/registerpage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +23,9 @@ class _MyloginState extends State<Mylogin> {
       child: Column(children: [
         TextFormField(controller: uname,
           decoration: InputDecoration(border: OutlineInputBorder()),),
-        TextFormField(controller: pwd
+        TextFormField(controller: pwd,
+        obscureText: true,
+        obscuringCharacter: '*'
         ,decoration: InputDecoration(border: OutlineInputBorder()),),
         Row(mainAxisAlignment: MainAxisAlignment.end,children: [TextButton(onPressed: () {
 Navigator.push(context, MaterialPageRoute(builder: (context) => Myregister(),));
@@ -38,10 +41,21 @@ Navigator.push(context, MaterialPageRoute(builder: (context) => Myregister(),));
     //var docData=FirebaseFirestore.instance.collection('userdetails').get({'uname': uname.text,'passwd':pwd.text});
     var docData=FirebaseFirestore.instance.collection('userdetails').where("uname", isEqualTo: uname.text).where("passwd", isEqualTo: pwd.text);
     var querySnapshot = await docData.get();
-    querySnapshot.docs.forEach((doc) {
-      // This loop iterates through documents that meet all the conditions
-      print(doc.id);
-      print(doc.data());
-    });
+    String usern="";
+    String myid="";
+
+    if(querySnapshot!=null)
+      {
+        querySnapshot.docs.forEach((doc) {
+          // This loop iterates through documents that meet all the conditions
+          print(doc.id);
+          //print(doc["uname"]);
+          usern=doc["uname"];
+          myid=doc.id;
+        });
+        print(usern);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Homepg(Uname:usern,mid: myid, ),));
+      }
+
   }
 }

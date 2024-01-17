@@ -13,6 +13,7 @@ class _MyregisterState extends State<Myregister> {
   TextEditingController fname=new TextEditingController();
   TextEditingController uname=new TextEditingController();
   TextEditingController pwd=new TextEditingController();
+  TextEditingController amount=new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +37,12 @@ class _MyregisterState extends State<Myregister> {
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Password'
+            ),),
+          TextFormField(
+            controller: amount,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Initial deposit'
             ),),
 
           Row(mainAxisAlignment: MainAxisAlignment.end,children: [
@@ -62,12 +69,14 @@ checkValid(context);
     else
       {
         var docData=FirebaseFirestore.instance.collection('userdetails').doc();
+
         final user= {
           'id': docData.id,
 
           'fullname': fname.text,
           'uname': uname.text,
-          'passwd':pwd.text
+          'passwd':pwd.text,
+          'amount':amount.text
         };
 
         var r= await docData.set(user);
